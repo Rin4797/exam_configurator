@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} Экзамены {% endblock %}
+
+{% block content %}
+
+    <h1>Экзамены</h1>
+
+    {% if exam_list %}
+        {% for exam in exam_list %}
+            <p><a href="{% url 'exams:exam_page' exam.id %}"> {{exam.name}}</a>, {{exam.date}}</p>
+        {% endfor %}
+    {% else %}
+        Экзаменов нет
+    {% endif %}
+
+<form action="{% url 'exams:add_exam' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" placeholder="Название экзамена" name="name"><br>
+    <input type="date" placeholder="Дата экзамена" name="date"><br>
+    <button type="submit">Новый экзамен</button>
+</form>
+
+{% endblock %}

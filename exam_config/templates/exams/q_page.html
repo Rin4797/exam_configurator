@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Вопрос {{q.name}} из {{q.exam.name}} {% endblock %}
+
+{% block content %}
+
+    <h1>Вопрос {{q.number}} из {{q.exam.name}}</h1>
+
+    <p> {{q.text}} </p>
+
+
+    {% if q.finished %}
+        <p> Завершено </p>
+    {% else %}
+        <p> Полного ответа нет </p>
+    {% endif %}
+
+<form enctype="multipart/form-data" action="{% url 'exams:add_file' q.exam.id q.id %}" method="POST">
+    {% csrf_token %}
+    <input type="file" placeholder="Решение вопроса" name="file"><br>
+    <input type="checkbox" name="status">Отметить, если прикреплено окончательное решение<br>
+    <button type="submit">Прикрепить файл</button>
+</form>
+
+<p><a href="{% url 'exams:delete_question' q.exam.id q.id%}">Удалить вопрос</a></p>
+
+<p><a href="{% url 'exams:exam_page' q.exam.id %}"> Назад</a></p>
+
+{% endblock %}>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} {{exam.name}} {% endblock %}
+
+{% block content %}
+
+    <h1> {{exam.name}} </h1>
+
+    {% if q_list %}
+        {% for q in q_list %}
+            {% if q.finished %}
+                <p><a href="{% url 'exams:q_page' exam.id q.id %}">{{q.number}}</a> done: {{q.text}}</p>
+            {% else %}
+                <p><a href="{% url 'exams:q_page' exam.id q.id %}">{{q.number}}</a> not finished: {{q.text}}</p>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        Вопросов нет
+    {% endif %}
+
+<form action="{% url 'exams:add_question' exam.id%}" method="POST">
+    {% csrf_token %}
+    <input type="text" placeholder="Текст вопроса" name="text"><br>
+    <button type="submit">Новый вопрос</button>
+</form>
+
+<p><a href="{% url 'exams:exam_result' exam.id%}">Получить PDF экзамена</a></p>
+
+<p><a href="{% url 'exams:delete_exam' exam.id%}">Удалить экзамен</a></p>
+
+<p><a href="{% url 'exams:index' %}">Назад</a></p>
+
+{% endblock %}
