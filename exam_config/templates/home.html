@@ -2,13 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
     <title>Конфигуратор экзаменов</title>
 </head>
 <body>
+
+<div  class="container">
+    <div class="jumbotron text-left">
     <h1>Правила использования</h1>
 
-    <p>Для изменения информации в уже созданных экзаменах -- ждите</p>
+    <p>Для дальнейшей работы рекомендуем <a href="/accounts/register">зарегестрироваться</a> или
+        <a href="/accounts/login">войти</a></p>
 
+    <p>Если Вы уже зашли, то можно <a href="/accounts/logout">выйти</a></p>
+
+    <p><a href="{% url 'exams:course' 1 %}">К экзаменам 1-ого курса</a></p>
+    <p><a href="{% url 'exams:course' 2 %}">К экзаменам 2-ого курса</a></p>
+    <p><a href="{% url 'exams:course' 3 %}">К экзаменам 3-его курса/a></p>
+    <p><a href="{% url 'exams:course' 4 %}">К экзаменам 4-ого курса</a></p>
     <p><a href="{% url 'exams:index' %}">К экзаменам</a></p>
+
+    </div>
+</div>
 </body>
 </html>

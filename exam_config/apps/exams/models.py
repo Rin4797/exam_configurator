@@ -8,6 +8,8 @@ class Exam(models.Model):
     date = models.DateField('дата экзамена')
     creator = models.CharField('создатель', max_length = 300)
     num_question = models.IntegerField('кол-во вопросов')
+    num_finished = models.IntegerField('кол-во законченных вопросов')
+    grade = models.IntegerField('курс обучения')
     result = models.FileField('результат',  upload_to="data/")
 
     def __str__(self):

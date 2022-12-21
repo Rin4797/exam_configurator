@@ -4,6 +4,7 @@ from . import views
 app_name = 'exams'
 urlpatterns = [
     path('', views.index, name='index'),
+    path('course/<int:grade>', views.course, name='course'),
     path('config/', views.config, name='config'),
     path('add_exam/', views.add_exam, name='add_exam'),
     path('<int:exam_id>/', views.exam_page, name='exam_page'),
@@ -13,4 +14,6 @@ urlpatterns = [
     path('<int:exam_id>/<int:q_id>', views.q_page, name='q_page'),
     path('<int:exam_id>/<int:q_id>/delete_question', views.delete_question, name='delete_question'),
     path('<int:exam_id>/<int:q_id>/add_file', views.add_file, name='add_file'),
+    path('<int:exam_id>/<int:q_id>/change_text', views.change_text, name='change_text'),
+    path('<int:exam_id>/<int:q_id>/finish_question', views.finish_question, name='finish_question'),
 ]

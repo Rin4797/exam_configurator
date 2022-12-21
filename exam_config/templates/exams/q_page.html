@@ -4,26 +4,68 @@
 
 {% block content %}
 
+<div class="jumbotron text-left">
+
     <h1>Вопрос {{q.number}} из {{q.exam.name}}</h1>
 
+    <div class="card">
+    <div class="card-body">
     <p> {{q.text}} </p>
+    </div>
+    </div>
+
+    <p></p>
+
+    <p> Автор: {{q.author}}</p>
 
 
     {% if q.finished %}
-        <p> Завершено </p>
+        <p> Завершен </p>
     {% else %}
         <p> Полного ответа нет </p>
     {% endif %}
 
-<form enctype="multipart/form-data" action="{% url 'exams:add_file' q.exam.id q.id %}" method="POST">
+<!--    <p><a href="{% url 'exams:delete_question' q.exam.id q.id%}" class="btn btn-primary" role="button">Удалить вопрос</a></p>-->
+
+
+</div>
+
+<div class="card">
+<div class="card-body">
+<h4 class="card-title">Прикрепление файла</h4>
+
+<form enctype="multipart/form-data" action="{% url 'exams:add_file' q.exam.id q.id %}" method="POST" class="form-inline">
     {% csrf_token %}
-    <input type="file" placeholder="Решение вопроса" name="file"><br>
-    <input type="checkbox" name="status">Отметить, если прикреплено окончательное решение<br>
-    <button type="submit">Прикрепить файл</button>
+    <input type="file" class="form-control mb-2 mr-sm-2" placeholder="Решение вопроса" name="file"><br>
+    <button type="submit" class="btn btn-secondary mb-2">Прикрепить файл</button>
 </form>
 
-<p><a href="{% url 'exams:delete_question' q.exam.id q.id%}">Удалить вопрос</a></p>
+    </div>
+</div>
 
-<p><a href="{% url 'exams:exam_page' q.exam.id %}"> Назад</a></p>
+<div class="card">
+<div class="card-body">
+<h4 class="card-title">Изменене текста</h4>
+
+<form enctype="multipart/form-data" action="{% url 'exams:change_text' q.exam.id q.id %}" method="POST" class="form-inline">
+    {% csrf_token %}
+    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Новый текст" name="text"><br>
+    <button type="submit" class="btn btn-secondary mb-2">Изменить текст</button>
+</form>
+
+    </div>
+</div>
+
+<div class="card">
+<div class="card-body">
+    <a href="{% url 'exams:finish_question' q.exam.id q.id%}" class="btn btn-secondary" role="button"> Завершить вопрос</a>
+</div>
+</div>
+
+<p></p>
+
+<p><a href="{% url 'exams:exam_page' q.exam.id %}" class="btn btn-primary" role="button"> Назад</a></p>
+
+
 
 {% endblock %}>

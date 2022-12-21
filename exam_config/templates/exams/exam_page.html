@@ -4,30 +4,61 @@
 
 {% block content %}
 
-    <h1> {{exam.name}} </h1>
+<div class="jumbotron text-left">
+
+    <h1> Экзамен: {{exam.name}} </h1>
 
     {% if q_list %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Текст</th>
+                <th>Закончен ли</th>
+                <th>Файл</th>
+                <th>Контакт автора</th>
+            </tr>
+            </thead>
+            <tbody>
         {% for q in q_list %}
-            {% if q.finished %}
-                <p><a href="{% url 'exams:q_page' exam.id q.id %}">{{q.number}}</a> done: {{q.text}}</p>
-            {% else %}
-                <p><a href="{% url 'exams:q_page' exam.id q.id %}">{{q.number}}</a> not finished: {{q.text}}</p>
-            {% endif %}
+            <tr>
+                <td><a href="{% url 'exams:q_page' exam.id q.id %}"> {{q.number}}</a></td>
+                <td>{{q.text}}</td>
+                {% if q.finished %}
+                <td> Да </td>
+                {% else %}
+                <td> Нет</td>
+                {% endif %}
+                <td> - </td>
+                <td>{{exam.creator}}</td>
+            </tr>
         {% endfor %}
+            </tbody>
+        </table>
     {% else %}
         Вопросов нет
     {% endif %}
 
-<form action="{% url 'exams:add_question' exam.id%}" method="POST">
+    <p><a href="{% url 'exams:exam_result' exam.id%}" class="btn btn-primary" role="button">Получить PDF экзамена</a>
+
+    <a href="{% url 'exams:delete_exam' exam.id%}" class="btn btn-primary" role="button">Удалить экзамен</a> </p>
+
+</div>
+
+<div class="card">
+<div class="card-body">
+<h4 class="card-title">Новый вопрос</h4>
+
+<form action="{% url 'exams:add_question' exam.id%}" method="POST" class="form-inline">
     {% csrf_token %}
-    <input type="text" placeholder="Текст вопроса" name="text"><br>
-    <button type="submit">Новый вопрос</button>
+    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Текст вопроса" name="text"><br>
+    <button type="submit" class="btn btn-secondary mb-2">Создать</button>
 </form>
 
-<p><a href="{% url 'exams:exam_result' exam.id%}">Получить PDF экзамена</a></p>
+    </div>
+</div>
 
-<p><a href="{% url 'exams:delete_exam' exam.id%}">Удалить экзамен</a></p>
-
-<p><a href="{% url 'exams:index' %}">Назад</a></p>
+<p></p>
+<p><a href="{% url 'exams:index' %}" class="btn btn-primary" role="button">Назад</a></p>
 
 {% endblock %}
