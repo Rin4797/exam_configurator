@@ -30,9 +30,9 @@ MEDIA_URL = 'media/'
 SECRET_KEY = "django-insecure-g73v$9+j*&yszmz(m3!iooe)h12ffn)-5%#o!psr)8ds^3)z#h"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '51.250.96.134', 'www.hse-exam-configurator.com', '*']
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
